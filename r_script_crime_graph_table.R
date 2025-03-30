@@ -2,17 +2,17 @@
 
 # A function running the list of necessary packages. Remove the '#' using the ALT key to uncomment it.
 
-# necessary_packages <- function() {
-#   
-#   packages <- c("readxl", "ggplot2", "gridExtra", "gtable", "scales", "readr")
-#   installed <- installed.packages()[, "Package"]
-#   to_load <- setdiff(packages, installed)
-#   
-#   if (length(to_load) > 0) {
-#     install.packages(to_load)
-#   }
-#   lapply(packages, require, character.only = TRUE)
-# }
+necessary_packages <- function() {
+ 
+ packages <- c("readxl", "ggplot2", "gridExtra", "gtable", "scales", "readr")
+ installed <- installed.packages()[, "Package"]
+ to_load <- setdiff(packages, installed)
+ 
+ if (length(to_load) > 0) {
+   install.packages(to_load)
+ }
+ lapply(packages, require, character.only = TRUE)
+}
 
 # Original data --------------------------------------------------------------------
 
@@ -28,8 +28,8 @@
 
 # Loading it --------------------------------------------------------------
 
-# raw_df_com <- read_csv2("~/data/gouv/gouv_crime/donnee-data.gouv-2024-geographie2024-produit-le2025-03-14.csv")
-# raw_df_dep <- read_csv2("~/data/gouv/gouv_crime/donnee-dep-data.gouv-2024-geographie2024-produit-le2025-03-14.csv")
+raw_df_com <- read_csv2("~/data/gouv/gouv_crime/donnee-data.gouv-2024-geographie2024-produit-le2025-03-14.csv")
+raw_df_dep <- read_csv2("~/data/gouv/gouv_crime/donnee-dep-data.gouv-2024-geographie2024-produit-le2025-03-14.csv")
 
 # Graph generation - Main comment ------------------------------------------------------------
 
