@@ -1,3 +1,5 @@
 # run the files
 
-source("criminalite/pack.R", "criminalite/graph.R", "criminalite/table.R", "criminalite/fectch.R")
+(function (fichier = c("pack.R", "graph.R", "table.R", "fetch.R")) {
+  lapply(fichier, source)
+}) ()
