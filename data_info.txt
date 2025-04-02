@@ -1,0 +1,85 @@
+# The datasets have been gathered from the following URL : 'https://www.data.gouv.fr/fr/datasets/bases-statistiques-communale-departementale-et-regionale-de-la-delinquance-enregistree-par-la-police-et-la-gendarmerie-nationales/'
+
+# More precisely : - 'https://www.data.gouv.fr/fr/datasets/bases-statistiques-communale-departementale-et-regionale-de-la-delinquance-enregistree-par-la-police-et-la-gendarmerie-nationales/#/resources/8debb975-02da-4bfc-808f-42d18ad76d0b'
+#                  - 'https://www.data.gouv.fr/fr/datasets/bases-statistiques-communale-departementale-et-regionale-de-la-delinquance-enregistree-par-la-police-et-la-gendarmerie-nationales/#/resources/17a807b1-8c4b-4c6d-afdd-8c62f26fd2c5'
+#		 - 'https://static.data.gouv.fr/resources/bases-statistiques-communale-departementale-et-regionale-de-la-delinquance-enregistree-par-la-police-et-la-gendarmerie-nationales/20250327-093832/info-complements-data.gouv-2024-geographie2024-produit-le2025-03-14.xlsx'
+
+# Their references were : - '8debb975-02da-4bfc-808f-42d18ad76d0b'
+#                         - '17a807b1-8c4b-4c6d-afdd-8c62f26fd2c5'
+#		        - 'e8c8fdc6-ed0a-4157-b9ec-a13e2211fc2d'
+
+# One line for each possible calls for each datasets ('communes' and 'departements') 
+
+# [,1]                                            [,2]              
+# [1,] "Coups et blessures volontaires"                "Victime"         
+# [2,] "Coups et blessures volontaires intrafamiliaux" "Victime"         
+# [3,] "Autres coups et blessures volontaires"         "Victime"         
+# [4,] "Violences sexuelles"                           "Victime"         
+# [5,] "Vols avec armes"                               "Infraction"      
+# [6,] "Vols violents sans arme"                       "Infraction"      
+# [7,] "Vols sans violence contre des personnes"       "Victime entendue"
+# [8,] "Cambriolages de logement"                      "Infraction"      
+# [9,] "Vols de véhicules"                             "Véhicule"        
+# [10,] "Vols dans les véhicules"                       "Véhicule"        
+# [11,] "Vols d'accessoires sur véhicules"              "Véhicule"        
+# [12,] "Destructions et dégradations volontaires"      "Infraction"      
+# [13,] "Usage de stupéfiants"                          "Mis en cause"    
+# [14,] "Usage de stupéfiants (AFD)"                    "Mis en cause"    
+# [15,] "Trafic de stupéfiants"                         "Mis en cause"    
+# [16,] "Escroqueries"                                  "Victime"     
+
+# [,1]                                            [,2]              
+# [1,] "Homicides"                                     "Victime"         
+# [2,] "Tentatives d'homicides"                        "Victime"         
+# [3,] "Coups et blessures volontaires"                "Victime"         
+# [4,] "Coups et blessures volontaires intrafamiliaux" "Victime"         
+# [5,] "Autres coups et blessures volontaires"         "Victime"         
+# [6,] "Violences sexuelles"                           "Victime"         
+# [7,] "Vols avec armes"                               "Infraction"      
+# [8,] "Vols violents sans arme"                       "Infraction"      
+# [9,] "Vols sans violence contre des personnes"       "Victime entendue"
+# [10,] "Cambriolages de logement"                      "Infraction"      
+# [11,] "Vols de véhicules"                             "Véhicule"        
+# [12,] "Vols dans les véhicules"                       "Véhicule"        
+# [13,] "Vols d'accessoires sur véhicules"              "Véhicule"        
+# [14,] "Destructions et dégradations volontaires"      "Infraction"      
+# [15,] "Usage de stupéfiants"                          "Mis en cause"    
+# [16,] "Usage de stupéfiants (AFD)"                    "Mis en cause"    
+# [17,] "Trafic de stupéfiants"                         "Mis en cause"    
+# [18,] "Escroqueries"                                  "Victime" 
+
+# They were last updated the 27 March 2025
+
+# Comments on the data ----------------------------------------------------
+
+# We notice in raw_df_com that cities appear twice in the sense that their 'arrondissements' are also listed. See :
+
+# (function() {
+#   info <- grep("^Paris\\s\\d+", cities_data$nomCommune)
+#   print(cities_data$nomCommune[info])
+# }) ()
+
+# [1] "Paris 1er Arrondissement" "Paris 2e Arrondissement" 
+# [3] "Paris 3e Arrondissement"  "Paris 4e Arrondissement" 
+# [5] "Paris 5e Arrondissement"  "Paris 6e Arrondissement" 
+# [7] "Paris 7e Arrondissement"  "Paris 8e Arrondissement" 
+# [9] "Paris 9e Arrondissement"  "Paris 10e Arrondissement"
+# [11] "Paris 11e Arrondissement" "Paris 12e Arrondissement"
+# [13] "Paris 13e Arrondissement" "Paris 14e Arrondissement"
+# [15] "Paris 15e Arrondissement" "Paris 16e Arrondissement"
+# [17] "Paris 17e Arrondissement" "Paris 18e Arrondissement"
+# [19] "Paris 19e Arrondissement" "Paris 20e Arrondissement"
+
+# ...
+# > sort(filtered_codes)
+# [1] 75056 75101 75102 75103 75104 75105 75106 75107 75108 75109 75110 75111
+# [13] 75112 75113 75114 75115 75116 75117 75118 75119 75120
+
+# That is why, in the functions, you will find:
+
+# Remove major cities with arrondissements (Marseille, Lyon, Paris)
+# if (use_codgeo) {
+#   data <- subset(data, !(CODGEO_2024 %in% c(69123, 75056, 13055)))
+# }
+
+# final note : I'm just practicing r-base, the code could probably be improved a lot and might be full of mistakes, be careful using the output.

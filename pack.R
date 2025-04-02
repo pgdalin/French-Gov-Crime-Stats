@@ -1,15 +1,33 @@
 # Packages ----------------------------------------------------------------
 
-# A function running the list of necessary packages. Remove the '#' using the ALT key to uncomment it.
-
 pack <- function() {
-  
   packages <- c("readxl", "ggplot2", "gridExtra", "gtable", "scales", "readr")
-  installed <- installed.packages()[, "Package"]
-  to_load <- setdiff(packages, installed)
+  installed <- rownames(installed.packages())
+  to_install <- setdiff(packages, installed)
   
-  if (length(to_load) > 0) {
-    install.packages(to_load)
+  if (length(to_install) > 0) {
+    tryCatch(
+      {
+        install.packages(to_install)
+      },
+      error = function(e) {
+        warning("Failed to install one or more packages: ", conditionMessage(e))
+      }
+    )
   }
-  lapply(packages, require, character.only = TRUE)
+  
+  results <- lapply(packages, function(pkg) {
+    tryCatch(
+      {
+        suppressPackageStartupMessages(require(pkg, character.only = TRUE))
+      },
+      error = function(e) {
+        warning(sprintf("Failed to load package '%s': %s", pkg, conditionMessage(e)))
+        FALSE
+      }
+    )
+  })
+  
+  invisible(results)
 }
+
